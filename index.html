@@ -58,7 +58,7 @@
   .venue-card{max-width:360px}
   .cal .heart{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.2s ease-in-out 1.2s}
   .cal .grid.in .heart,.cal .grid:not(.rv) .heart{stroke-dashoffset:0}
-  .rv{opacity:0;transform:translateY(16px);filter:blur(4px);transition:opacity 1.8s ease,transform 1.8s ease,filter 1.8s ease}
+  .rv{opacity:0;transform:translateY(10px);filter:blur(2px);transition:opacity .9s ease,transform .9s ease,filter .9s ease}
   .rv.in{opacity:1;transform:none;filter:none}
 
   /* top controls */
@@ -204,7 +204,7 @@
   #gate .tap small{display:block;font-family:"Cormorant Garamond",serif;font-size:15px;color:var(--ink);letter-spacing:1px}
   @keyframes pulse{50%{opacity:.45}}
   @media (prefers-reduced-motion:reduce){#gate .door{transition:none}#gate .tap{animation:none}}
-    .fam small,.couple small{font-size:18px;font-weight:700}
+  .fam small,.couple small{font-size:18px;font-weight:700}
   html[lang=en] .fam small,html[lang=en] .couple small{font-size:16px;font-weight:600}
 </style>
 </head>
@@ -453,7 +453,7 @@ function rvPump(){
   if (!rvQueue.length){ rvTimer = null; return; }
   const el = rvQueue.shift(); el.classList.add("in");
   const r = el.getBoundingClientRect();
-  rvTimer = setTimeout(rvPump, r.bottom < 0 || r.top > innerHeight ? 0 : 300);
+  rvTimer = setTimeout(rvPump, r.bottom < 0 || r.top > innerHeight ? 0 : 150);
 }
 const io = new IntersectionObserver(es => {
   es.filter(e => e.isIntersecting).map(e => e.target)
@@ -466,7 +466,7 @@ rvEls.forEach(el => io.observe(el));
 /* ===== Gentle auto-scroll ===== */
 (function(){
   const SPEED = 85;            // pixels per second
-  const START_AFTER = 6500;    // let the opening text appear first
+  const START_AFTER = 3500;    // let the opening text appear first
   const RESUME_AFTER = 5000;   // after the guest touches the page
   let pos = 0, last = 0, pausedUntil = Infinity, stopped = false;
   window.__startAutoScroll = () => { pausedUntil = performance.now() + START_AFTER; };
@@ -554,7 +554,7 @@ updateLinks();
     scrollTo(0, 0);
     gate.classList.add("open");
     document.body.classList.remove("locked");
-    setTimeout(() => { if (!rvTimer) rvPump(); }, 1100);
+    setTimeout(() => { if (!rvTimer) rvPump(); }, 600);
     window.__startAutoScroll && window.__startAutoScroll();
     if (window.__onOpen) window.__onOpen();   // e.g. start music later
     setTimeout(() => gate.remove(), 3200);
