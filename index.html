@@ -190,37 +190,31 @@
   body.locked{overflow:hidden;height:100svh}
   #gate{position:fixed;inset:0;z-index:20;perspective:1400px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity 1.2s ease 1.6s, visibility 0s linear 2.8s}
   #gate.open{opacity:0;visibility:hidden;pointer-events:none}
-  #gate .door{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;background-color:#efe8da;background-size:cover;background-repeat:no-repeat;box-shadow:0 0 30px rgba(90,60,40,.15);transition:transform 2.4s cubic-bezier(.6,.05,.25,1);backface-visibility:hidden}
-  #gate .door.l{left:0;transform-origin:left center;background-image:url(door-l.jpg);background-position:right center}
-  #gate .door.r{right:0;transform-origin:right center;background-image:url(door-r.jpg);background-position:left center}
+  /* the stage keeps the doors image's exact proportions, so text always sits on the same panels */
+  body.locked .topbar,body.locked .music-fab{opacity:0;pointer-events:none}
+  .topbar,.music-fab{transition:opacity .8s ease 1.2s}
+  #gate .stage{position:absolute;top:0;bottom:0;left:50%;height:100%;aspect-ratio:449/799;transform:translateX(-50%);transform-style:preserve-3d;--u:calc(var(--gh,844px)/100)}
+  #gate .door{position:absolute;top:0;bottom:0;width:50%;overflow:visible;background-color:#efe8da;background-size:100% 100%;background-repeat:no-repeat;box-shadow:0 0 30px rgba(90,60,40,.15);transition:transform 2.4s cubic-bezier(.6,.05,.25,1);backface-visibility:hidden}
+  #gate .door.l{left:0;transform-origin:left center;background-image:url(door-l.jpg)}
+  #gate .door.r{right:0;transform-origin:right center;background-image:url(door-r.jpg)}
   #gate.open .door.l{transform:rotateY(100deg)}
   #gate.open .door.r{transform:rotateY(-100deg)}
+  #gate .dtext{position:absolute;top:23%;transform:translateX(-50%);text-align:center;font-family:"Amiri",serif;color:var(--wine);text-shadow:0 0 calc(var(--u)*.7) #f7f1e6,0 0 calc(var(--u)*1.6) #f7f1e6,0 0 calc(var(--u)*2.6) #f7f1e6}
+  #gate .l .dtext{left:55.6%}
+  #gate .r .dtext{left:43.8%}
+  #gate .fam-g{font-weight:700;font-size:calc(var(--u)*1.8);color:var(--ink);white-space:nowrap}
+  #gate .dv{display:flex;justify-content:center;margin:calc(var(--u)*1.4) 0 calc(var(--u)*1.65)}
+  #gate .dv i{display:block;width:calc(var(--u)*6.4);height:1px;background:linear-gradient(90deg,transparent,#b08d57,transparent);position:relative}
+  #gate .dv i::after{content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;background:#b08d57;transform:translate(-50%,-50%) rotate(45deg)}
+  #gate .who small{display:block;font-size:calc(var(--u)*1.9);font-weight:700;color:var(--ink);margin-bottom:2px}
+  #gate .who{font-weight:700;font-size:calc(var(--u)*5);line-height:1.15;white-space:nowrap}
+  #gate .amp-g{position:absolute;left:50%;top:34.4%;transform:translate(-50%,-50%);font-family:"Great Vibes","Cormorant Garamond",serif;font-size:calc(var(--u)*3.8);color:var(--rose);text-shadow:0 0 8px #f7f1e6,0 0 16px #f7f1e6;transition:opacity .6s ease}
+  #gate.open .amp-g{opacity:0}
   #gate .seal{position:absolute;left:50%;top:85%;transform:translate(-50%,-50%);text-align:center;transition:opacity .6s ease, transform .6s ease;z-index:2}
   #gate.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.85)}
-  #gate .medal{width:118px;height:118px;margin:0 auto;border-radius:50%;display:grid;place-items:center;
-    background:radial-gradient(circle at 35% 30%,#9a3a60,#7a2848 55%,#5e1c37);box-shadow:0 6px 18px rgba(94,28,55,.35),inset 0 0 0 4px rgba(255,255,255,.12),inset 0 0 0 7px rgba(0,0,0,.08)}
-  #gate .medal span{font-family:"Amiri",serif;font-weight:700;font-size:34px;color:#f6e7da;letter-spacing:2px;line-height:1}
-  #gate .tap{margin-top:0;white-space:nowrap;font-family:"Amiri",serif;font-weight:700;font-size:20px;color:var(--wine);text-shadow:0 0 8px #f5efe3,0 0 16px #f5efe3;animation:pulse 2.2s ease-in-out infinite}
-  #gate .tap small{display:block;font-family:"Cormorant Garamond",serif;font-size:15px;color:var(--ink);letter-spacing:1px}
-  @keyframes pulse{50%{opacity:.45}}
-
-  #gate .dtext{position:absolute;top:23%;text-align:center;font-family:"Amiri",serif;color:var(--wine);text-shadow:0 0 6px #f7f1e6,0 0 14px #f7f1e6,0 0 22px #f7f1e6}
-  #gate .r .dtext{left:6%;right:0}
-  #gate .l .dtext{left:0;right:6%}
-  #gate .fam-g{font-weight:700;font-size:15px;color:var(--ink);white-space:nowrap}
-  #gate .dv{display:flex;justify-content:center;margin:12px 0 14px}
-  #gate .dv i{display:block;width:54px;height:1px;background:linear-gradient(90deg,transparent,#b08d57,transparent);position:relative}
-  #gate .dv i::after{content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;background:#b08d57;transform:translate(-50%,-50%) rotate(45deg)}
-  #gate .who small{display:block;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:2px}
-  #gate .who{font-weight:700;font-size:42px;line-height:1.15}
-  #gate .amp-g{position:absolute;left:50%;top:calc(23% + 96px);transform:translate(-50%,-50%);font-family:"Great Vibes","Cormorant Garamond",serif;font-size:32px;color:var(--rose);text-shadow:0 0 8px #f7f1e6,0 0 16px #f7f1e6;transition:opacity .6s ease}
-  #gate.open .amp-g{opacity:0}
-  #gate .g-date{font-family:"Amiri",serif;font-weight:700;font-size:19px;color:var(--wine);white-space:nowrap;text-shadow:0 0 6px #f7f1e6,0 0 14px #f7f1e6}
-  #gate .g-date.en{font-family:"Cormorant Garamond",serif;font-weight:700;font-size:19px;color:var(--wine);margin-top:2px}
-  #gate .g-btn{display:inline-block;margin:16px 0 10px;padding:11px 30px;border-radius:999px;background:var(--wine);color:#fff;font-family:"Amiri",serif;font-size:19px;white-space:nowrap;box-shadow:0 6px 16px rgba(94,28,55,.28)}
-  #gate .g-btn span{opacity:.7;margin:0 4px}
-  #gate .tap{font-size:17px!important;margin-top:0!important}
-  #gate .seal .dv{margin:8px 0 8px}
+  #gate .g-date.en{font-family:"Cormorant Garamond",serif;font-weight:700;font-size:calc(var(--u)*2.25);color:var(--wine);white-space:nowrap;text-shadow:0 0 6px #f7f1e6,0 0 14px #f7f1e6}
+  #gate .seal .dv{margin:calc(var(--u)*.9) 0}
+  #gate .tap{white-space:nowrap;font-family:"Amiri",serif;font-weight:700;font-size:calc(var(--u)*2);color:var(--wine);text-shadow:0 0 8px #f5efe3,0 0 16px #f5efe3;animation:pulse 2.2s ease-in-out infinite}
   @media (prefers-reduced-motion:reduce){#gate .door{transition:none}#gate .tap{animation:none}}
   .fam small,.couple small{font-size:18px;font-weight:700}
   html[lang=en] .fam small,html[lang=en] .couple small{font-size:16px;font-weight:600}
@@ -228,6 +222,7 @@
 </head>
 <body class="locked">
 <div id="gate" role="button" aria-label="افتح الدعوة" tabindex="0">
+ <div class="stage">
   <div class="door l">
     <div class="dtext">
       <div class="fam-g">أفراح آل أبوقوطة</div>
@@ -248,6 +243,7 @@
     <div class="dv"><i></i></div>
     <div class="tap">اضغط لفتح الدعوة</div>
   </div>
+ </div>
 </div>
 <div id="bg" aria-hidden="true"></div>
 
@@ -581,6 +577,8 @@ updateLinks();
 /* ===== Opening the doors ===== */
 (function(){
   const gate = document.getElementById("gate");
+  const fit = () => gate.style.setProperty("--gh", gate.clientHeight + "px");
+  fit(); addEventListener("resize", fit);
   function openGate(){
     if (window.__opened) return;
     window.__opened = true;
