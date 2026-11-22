@@ -577,9 +577,7 @@ updateLinks();
 /* ===== Share the invitation on WhatsApp ===== */
 (function(){
   const url = location.href.split("#")[0];
-  const msg = () => (lang === "en"
-    ? "You are warmly invited to the wedding of Ameen & Tasneem 🤍\nSaturday, 19 December 2026 · Red Castle Hotel, Sharjah\n"
-    : "يسعدنا دعوتكم لحضور حفل زفاف أمين وتسنيم 🤍\nالسبت 19 ديسمبر 2026 · فندق ريد كاسل، الشارقة\n") + url;
+  const msg = () => url;
   const set = () => { const h = "https://wa.me/?text=" + encodeURIComponent(msg()); shareFab.href = h; shareBtn.href = h; };
   set(); langBtn.addEventListener("click", () => setTimeout(set, 0));
 })();
