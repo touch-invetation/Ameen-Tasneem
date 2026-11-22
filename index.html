@@ -6,22 +6,23 @@
 <title>أمين و تسنيم</title>
 <meta name="description" content="Ameen ⁠♡ Tasneem">
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:url" content="https://touch-invetation.github.io/Ameen-Tasneem/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Wedding Invitation" />
-    <meta property="og:image" content="https://touch-invetation.github.io/Ameen-Tasneem/love-letter.png" />
-    <meta property="og:image:secure_url" content="https://touch-invetation.github.io/Ameen-Tasneem/love-letter.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="512" />
-    <meta property="og:image:height" content="512" />
+<!-- Open Graph Meta Tags -->
+<meta property="og:url" content="https://touch-invetation.github.io/Ameen-Tasneem/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Wedding Invitation" />
+<meta property="og:description" content="Ameen ⁠♡ Tasneem" />
+<meta property="og:image" content="https://touch-invetation.github.io/Ameen-Tasneem/love-letter.png" />
+<meta property="og:image:secure_url" content="https://touch-invetation.github.io/Ameen-Tasneem/love-letter.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="512" />
+<meta property="og:image:height" content="512" />
 
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary" />
-    <meta property="twitter:domain" content="touch-invetation.github.io" />
-    <meta property="twitter:url" content="https://touch-invetation.github.io/Ameen-Tasneem/" />
-    <meta name="twitter:title" content="Wedding Invitation" />
-    <meta name="twitter:image" content="https://touch-invetation.github.io/Ameen-Tasneem/love-letter.png" />
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:domain" content="touch-invetation.github.io" />
+<meta property="twitter:url" content="https://touch-invetation.github.io/Ameen-Tasneem/" />
+<meta name="twitter:title" content="Wedding Invitation" />
+<meta name="twitter:image" content="https://touch-invetation.github.io/Ameen-Tasneem/love-letter.png" />
 <meta name="theme-color" content="#f5f3ec">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -202,7 +203,7 @@
   #gate .dtext{position:absolute;top:23%;transform:translateX(-50%);text-align:center;font-family:"Amiri",serif;color:var(--wine);text-shadow:0 0 calc(var(--u)*.7) #f7f1e6,0 0 calc(var(--u)*1.6) #f7f1e6,0 0 calc(var(--u)*2.6) #f7f1e6}
   #gate .l .dtext{left:55.6%}
   #gate .r .dtext{left:43.8%}
-  #gate .fam-g{font-weight:700;font-size:calc(var(--u)*1.8);color:var(--ink);white-space:nowrap}
+  #gate .fam-g{font-weight:700;font-size:calc(var(--u)*2.1);color:var(--ink);white-space:nowrap}
   #gate .dv{display:flex;justify-content:center;margin:calc(var(--u)*1.4) 0 calc(var(--u)*1.65)}
   #gate .dv i{display:block;width:calc(var(--u)*6.4);height:1px;background:linear-gradient(90deg,transparent,#b08d57,transparent);position:relative}
   #gate .dv i::after{content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;background:#b08d57;transform:translate(-50%,-50%) rotate(45deg)}
@@ -218,6 +219,10 @@
   @media (prefers-reduced-motion:reduce){#gate .door{transition:none}#gate .tap{animation:none}}
   .fam small,.couple small{font-size:18px;font-weight:700}
   html[lang=en] .fam small,html[lang=en] .couple small{font-size:16px;font-weight:600}
+  .share-fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:6;height:44px;padding:0 16px 0 14px;border-radius:999px;display:flex;align-items:center;gap:7px;text-decoration:none;font-family:"Amiri",serif;font-weight:700;font-size:16px;background:var(--wine);color:#fff;box-shadow:0 4px 14px rgba(94,28,55,.25);text-shadow:none}
+  .share-btn{margin-top:22px;width:auto;padding:12px 28px;border-radius:999px}
+  body.locked .share-fab{opacity:0;pointer-events:none}
+  .share-fab{transition:opacity .8s ease 1.2s}
 </style>
 </head>
 <body class="locked">
@@ -257,6 +262,10 @@
     <svg class="on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
     <svg class="off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>
   </button>
+<a class="share-fab" id="shareFab" href="#" target="_blank" rel="noopener" aria-label="مشاركة الدعوة">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.4M8.3 13.2l7.4 4.4"/></svg>
+  <span data-ar="مشاركة" data-en="Share">مشاركة</span>
+</a>
 <audio id="music" src="./الموسيقى التركية الرائعة ( أنا أحبك ) مسلسل حب ابيض اسود siyah beyaz aşk müzik.mp3" loop preload="auto"></audio>
 
 <main>
@@ -338,6 +347,8 @@
         <div><h3 data-ar="وقت العشاء" data-en="Dinner">وقت العشاء</h3><time>9:30 PM</time><p data-ar="يُقدَّم العشاء لضيوفنا الكرام" data-en="Dinner is served to our honoured guests">يُقدَّم العشاء لضيوفنا الكرام</p></div></li>
       <li><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="9" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M15 14.5c3 0 6 1.8 6 5.5"/></svg></span>
         <div><h3 data-ar="دخول الرجال المقرّبين" data-en="Close male relatives join">دخول الرجال المقرّبين</h3><time>10:30 PM</time><p data-ar="انضمام الرجال المقرّبين لمشاركة الفرحة" data-en="Close male relatives join the celebration">انضمام الرجال المقرّبين لمشاركة الفرحة</p></div></li>
+      <li><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span>
+        <div><h3 data-ar="ختام الحفل" data-en="Farewell">ختام الحفل</h3><time>11:00 PM</time><p data-ar="نودّعكم بقلوب ممتنّة لمشاركتكم فرحتنا" data-en="We bid you farewell with grateful hearts">نودّعكم بقلوب ممتنّة لمشاركتكم فرحتنا</p></div></li>
     </ul>
   </section>
 
@@ -399,6 +410,7 @@
       <p class="sub" data-ar="يسعدنا حضوركم ومشاركتكم فرحتنا في يومنا المميّز، فوجودكم بيننا يجعل لحظاتنا أجمل وذكرياتنا لا تُنسى." data-en="Your presence on our special day makes every moment more beautiful and every memory unforgettable.">يسعدنا حضوركم ومشاركتكم فرحتنا في يومنا المميّز، فوجودكم بيننا يجعل لحظاتنا أجمل وذكرياتنا لا تُنسى.</p>
       <p class="sig" data-ar="المحامي أمين &amp; الآنسة تسنيم" data-en="Ameen &amp; Tasneem">المحامي أمين &amp; الآنسة تسنيم</p>
       <p class="sigdate">19 · 12 · 2026</p>
+      <a class="btn share-btn" id="shareBtn" href="#" target="_blank" rel="noopener" data-ar="شارك الدعوة على واتساب" data-en="Share on WhatsApp">شارك الدعوة على واتساب</a>
     </div>
   </section>
 </main>
@@ -561,6 +573,16 @@ wSend.addEventListener("click", e => {
 });
 document.querySelectorAll("form").forEach(f => f.addEventListener("submit", e => e.preventDefault()));
 updateLinks();
+
+/* ===== Share the invitation on WhatsApp ===== */
+(function(){
+  const url = location.href.split("#")[0];
+  const msg = () => (lang === "en"
+    ? "You are warmly invited to the wedding of Ameen & Tasneem 🤍\nSaturday, 19 December 2026 · Red Castle Hotel, Sharjah\n"
+    : "يسعدنا دعوتكم لحضور حفل زفاف أمين وتسنيم 🤍\nالسبت 19 ديسمبر 2026 · فندق ريد كاسل، الشارقة\n") + url;
+  const set = () => { const h = "https://wa.me/?text=" + encodeURIComponent(msg()); shareFab.href = h; shareBtn.href = h; };
+  set(); langBtn.addEventListener("click", () => setTimeout(set, 0));
+})();
 
 /* ===== Music ===== */
 (function(){
