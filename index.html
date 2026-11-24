@@ -223,6 +223,15 @@
   .share-btn{margin-top:22px;width:auto;padding:12px 28px;border-radius:999px}
   body.locked .share-fab{opacity:0;pointer-events:none}
   .share-fab{transition:opacity .8s ease 1.2s}
+  .ok{color:var(--sage-d);font-size:15px;font-weight:700;min-height:18px;text-align:center;margin-top:10px}
+  .wall{width:100%;max-width:380px;margin:26px auto 0;max-height:440px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:4px 4px 8px;overscroll-behavior:contain}
+  .wall:empty{display:none}
+  .wish{background:rgba(255,255,255,.55);border:1px solid var(--stone-d);border-radius:14px;padding:14px 16px 12px;text-align:right;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:wishIn .7s ease both}
+  html[lang=en] .wish{text-align:left}
+  .wish p{font-size:16px;line-height:1.7;color:var(--ink);white-space:pre-wrap;word-wrap:break-word;text-shadow:none}
+  .wish b{display:block;margin-top:6px;font-size:14px;color:var(--wine);text-shadow:none}
+  .wish b::before{content:"🤍 "}
+  @keyframes wishIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body class="locked">
@@ -396,10 +405,11 @@
       <input type="text" id="wName" data-ph-ar="الاسم" data-ph-en="Name" placeholder="الاسم">
       <label for="wMsg" data-ar="تهنئتكم *" data-en="Your message *">تهنئتكم *</label>
       <textarea id="wMsg" data-ph-ar="شاركوا أمين وتسنيم ذكرى جميلة أو كلمة مباركة" data-ph-en="Share a kind word or a lovely memory with Ameen &amp; Tasneem" placeholder="شاركوا أمين وتسنيم ذكرى جميلة أو كلمة مباركة"></textarea>
-      <p class="hint" data-ar="تُفتح التهنئة في واتساب لإرسالها." data-en="Your message opens in WhatsApp to send.">تُفتح التهنئة في واتساب لإرسالها.</p>
-      <p class="err" id="wErr"></p>
-      <a class="btn" id="wSend" href="#" target="_blank" rel="noopener" data-ar="إرسال التهنئة" data-en="Send wishes">إرسال التهنئة</a>
+            <p class="err" id="wErr"></p>
+      <button class="btn" id="wSend" type="button" data-ar="إرسال التهنئة" data-en="Send wishes">إرسال التهنئة</button>
+      <p class="ok" id="wOk"></p>
     </form>
+    <div class="wall" id="wall" aria-live="polite"></div>
   </section>
 
   <!-- 9. Finale -->
@@ -486,7 +496,7 @@ function tick(){
 tick(); setInterval(tick, 1000);
 
 /* ===== Text appears little by little ===== */
-const RV_SEL = ".basmala,.ayah,.names,.date-line,.divider,.lead,.fam,.and,.invite-line,.couple>div,.when,.facts>div,.cal .month,.cal .grid,h2,.countdown>div,.venue-card>*,.timeline li,.notes p,.sub,#wishes>p,form>label,form>input,form>textarea,form>.radios,form>#countWrap,form>.hint,form>.btn,.finale .big,.finale .sig,.finale .sigdate";
+const RV_SEL = ".basmala,.ayah,.names,.date-line,.divider,.lead,.fam,.and,.invite-line,.couple>div,.when,.facts>div,.cal .month,.cal .grid,h2,.countdown>div,.venue-card>*,.timeline li,.notes p,.sub,#wishes>p,form>label,form>input,form>textarea,form>.radios,form>#countWrap,form>.hint,form>.btn,.wall,.finale .big,.finale .sig,.finale .sigdate";
 const rvEls = [...document.querySelectorAll(RV_SEL)].filter(el => !el.parentElement.closest(RV_SEL));
 rvEls.forEach(el => el.classList.add("rv"));
 let rvQueue = [], rvTimer = null;
@@ -551,12 +561,8 @@ function rsvpText(){
     ? `تأكيد حضور حفل زفاف أمين وتسنيم 🤍\nالاسم: ${name}\nالحضور: سأحضر بكل سرور\nعدد الحضور: ${n}`
     : `حفل زفاف أمين وتسنيم 🤍\nالاسم: ${name}\nأعتذر عن الحضور، مع خالص التهاني والتبريكات.`;
 }
-function wishText(){
-  const name = wName.value.trim();
-  return `تهنئة لأمين وتسنيم 🤍\n${wMsg.value.trim()}${name ? `\n— ${name}` : ""}`;
-}
-function updateLinks(){ rSend.href = wa(rsvpText()); wSend.href = wa(wishText()); }
-document.querySelectorAll("#rsvpForm input, #wishForm input, #wishForm textarea").forEach(el => el.addEventListener("input", updateLinks));
+function updateLinks(){ rSend.href = wa(rsvpText()); }
+document.querySelectorAll("#rsvpForm input").forEach(el => el.addEventListener("input", updateLinks));
 document.querySelectorAll("input[name=att]").forEach(el => el.addEventListener("change", () => { countWrap.style.display = document.querySelector("input[name=att]:checked").value === "yes" ? "" : "none"; updateLinks(); }));
 const msg = { name:{ar:"يرجى كتابة الاسم الكامل.",en:"Please enter your full name."}, wish:{ar:"يرجى كتابة التهنئة.",en:"Please write your message."}, num:{ar:"رقم واتساب لم يُضَف بعد.",en:"WhatsApp number not set yet."} };
 rSend.addEventListener("click", e => {
@@ -564,12 +570,6 @@ rSend.addEventListener("click", e => {
   if (!rName.value.trim()){ e.preventDefault(); rErr.textContent = msg.name[lang]; rName.focus(); return; }
   if (!WHATSAPP_NUMBER){ e.preventDefault(); rErr.textContent = msg.num[lang]; return; }
   rErr.textContent = "";
-});
-wSend.addEventListener("click", e => {
-  updateLinks();
-  if (!wMsg.value.trim()){ e.preventDefault(); wErr.textContent = msg.wish[lang]; wMsg.focus(); return; }
-  if (!WHATSAPP_NUMBER){ e.preventDefault(); wErr.textContent = msg.num[lang]; return; }
-  wErr.textContent = "";
 });
 document.querySelectorAll("form").forEach(f => f.addEventListener("submit", e => e.preventDefault()));
 updateLinks();
@@ -613,6 +613,64 @@ updateLinks();
   gate.addEventListener("click", openGate);
   gate.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") openGate(); });
 })();
+</script>
+
+<!-- ===== Wishes wall (Firebase Firestore): every guest sees every wish ===== -->
+<script type="module">
+// Paste your Firebase web-app config here (Firebase console → Project settings → Your apps → Config)
+const FIREBASE_CONFIG = {
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
+};
+
+const WISHES_COLLECTION = "wishes_ameen_tasneem"; // must start with wishes_ (matches your Firestore rules)
+const wall = document.getElementById("wall");
+const T = {
+  sent:{ar:"وصلت تهنئتكم، شكراً لكم 🤍",en:"Thank you, your wishes were sent 🤍"},
+  fail:{ar:"تعذّر الإرسال، حاولوا مرة أخرى.",en:"Couldn't send, please try again."},
+  setup:{ar:"لم يتم ربط التهاني بعد.",en:"Wishes are not connected yet."},
+  empty:{ar:"يرجى كتابة التهنئة.",en:"Please write your message."}
+};
+const L = () => (document.documentElement.lang === "en" ? "en" : "ar");
+
+function card(w){
+  const d = document.createElement("div"); d.className = "wish";
+  const p = document.createElement("p"); p.textContent = w.m || "";
+  d.appendChild(p);
+  if (w.n){ const b = document.createElement("b"); b.textContent = w.n; d.appendChild(b); }
+  return d;
+}
+
+let fs = null, db = null;
+if (FIREBASE_CONFIG.projectId){
+  try{
+    const V = "10.14.1";
+    const { initializeApp } = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-app.js`);
+    fs = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-firestore.js`);
+    db = fs.getFirestore(initializeApp(FIREBASE_CONFIG));
+    const q = fs.query(fs.collection(db, WISHES_COLLECTION), fs.orderBy("t", "desc"), fs.limit(300));
+    fs.onSnapshot(q, snap => {
+      wall.replaceChildren(...snap.docs.map(d => d.data()).filter(w => w.show !== false).map(card));
+    }, () => {});
+  }catch(e){ console.warn("Firebase not available", e); db = null; }
+}
+
+wSend.addEventListener("click", async () => {
+  const m = wMsg.value.trim().slice(0, 500), n = wName.value.trim().slice(0, 60);
+  wOk.textContent = "";
+  if (!m){ wErr.textContent = T.empty[L()]; wMsg.focus(); return; }
+  if (!db){ wErr.textContent = T.setup[L()]; return; }
+  wErr.textContent = ""; wSend.disabled = true;
+  try{
+    await fs.addDoc(fs.collection(db, WISHES_COLLECTION), { n, m, show: true, t: fs.serverTimestamp() });
+    wMsg.value = ""; wName.value = ""; wOk.textContent = T.sent[L()]; wall.scrollTop = 0;
+  }catch(e){ wErr.textContent = T.fail[L()]; }
+  wSend.disabled = false;
+});
 </script>
 </body>
 </html>
